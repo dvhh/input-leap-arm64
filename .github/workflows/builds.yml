@@ -24,43 +24,65 @@ env:
 jobs:
   linux-build:
     name: ${{ matrix.name }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     container: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+       runner:
+         - ubuntu-latest
+         - ubuntu-22.04-arm
        include:
          - name: ubuntu-20-04
+           runner: ubuntu-latest
            os: "ubuntu:20.04"
            cc: "gcc"
            cxx: "g++"
            wayland: none
          - name: ubuntu-22-04-clang
+           runner: ubuntu-latest
            os: "ubuntu:22.04"
            cc: "clang"
            cxx: "clang++"
            wayland: none
          - name: ubuntu-22-04
+           runner: ubuntu-latest
            os: "ubuntu:22.04"
            cc: "gcc"
            cxx: "g++"
            wayland: none
          - name: ubuntu-24-04
+           runner: ubuntu-latest
            os: "ubuntu:24.04"
            cc: "gcc"
            cxx: "g++"
            wayland: dist
          - name: ubuntu-24-10
+           runner: ubuntu-latest
            os: "ubuntu:24.10"
            cc: "gcc"
            cxx: "g++"
            wayland: dist
          - name: debian-12
+           runner: ubuntu-latest
+           os: "debian:bookworm"
+           cc: "gcc"
+           cxx: "g++"
+           wayland: none
+         - name: debian-12-arm64
+           runner: ubuntu-22.04-arm
            os: "debian:bookworm"
            cc: "gcc"
            cxx: "g++"
            wayland: none
          - name: debian-12-latest-libei
+           runner: ubuntu-latest
+           os: "debian:bookworm"
+           cc: "gcc"
+           cxx: "g++"
+           wayland: latest
+         - name: debian-12-latest-libei-arm64
+           runner: ubuntu-22.04-arm
            os: "debian:bookworm"
            cc: "gcc"
            cxx: "g++"
